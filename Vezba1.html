@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Web kartografija </title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map">
+    <script>
+
+      // This example displays a marker at the center of Australia.
+      // When the user clicks the marker, an info window opens.
+      // The maximum width of the info window is set to 200 pixels.
+
+      function initMap() {
+        var Gradjevinski = {lat: 44.80541851, lng: 20.47656298};
+		var Dom = {lat: 44.8038618, lng: 20.4799667};
+		var crkva = {lat:44.81048227, lng: 20.46894416};
+		var Vuk = {lat: 44.804873, lng: 20.477627};
+		var Masinski = {lat: 44.806644, lng: 20.477074};
+		var Biblioteka = {lat: 44.806142, lng: 20.474708};
+		
+		
+		
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom:15,
+          center: Gradjevinski
+        });
+
+        var contentString1 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Gradjevinski</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Attribution: Gradjevinski, <a href="https://en.wikipedia.org/w/index.php?title=Gradjevinski&oldid=297882194">'+
+            'https://en.wikipedia.org/w/index.php?title=Gradjevinski</a> '+
+            '</div>'+
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString1,
+          maxWidth: 200
+        });// promenljiva koja pravi info prozor
+
+        var marker1 = new google.maps.Marker({
+          position: Gradjevinski,
+          map: map,
+          title: 'Gradjevinski fakultet univerziteta u Beogradu)'
+        });
+        marker1.addListener('click', function() {
+          infowindow.open(map, marker1);
+        });
+		//////////////////////////////////////////
+		var contentString2 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Crkva sv Marka</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Attribution:Crkva sv Marka, <a href="https://sh.wikipedia.org/wiki/Crkva_Svetog_Marka_u_Beogradu">'+
+            'https://sh.wikipedia.org/wiki/Crkva_Svetog_Marka_u_Beogradu</a> '+
+            '</div>'+
+            '</div>';
+		
+		  var infowindow2 = new google.maps.InfoWindow({
+          content: contentString2,// sadrzaj prozora
+          maxWidth: 200
+        });// promenljiva koja pravi info prozor
+		
+		var marker2 = new google.maps.Marker({
+          position: crkva,
+          map: map,
+          title: 'Crkva_Svetog_Marka_u_Beogradu'
+        });
+	       marker2.addListener('click', function() {
+          infowindow2.open(map, marker2);
+        });
+		/////////////////////////////////////////////////
+		var contentString3 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Studentski dom Lola</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Attribution: Studentski dom Lola, <a href="http://sc.rs/sc/">'+
+            'http://sc.rs/sc/= Lola</a> '+            
+            '</div>'+
+            '</div>';
+		
+		  var infowindow3 = new google.maps.InfoWindow({
+          content: contentString3,// sadrzaj prozora
+          maxWidth: 200
+        });// promenljiva koja pravi info prozor
+		
+		var marker3 = new google.maps.Marker({
+          position: Dom,
+          map: map,
+          title: 'Studentski dom Lola'
+        });
+	       marker3.addListener('click', function() {
+          infowindow3.open(map, marker3);
+        });
+		
+		var contentString4 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Vukov Spomenik</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Attribution: Vuk, <a href="https://en.wikipedia.org/wiki/Vukov_Spomenik">'+
+            'https://https://en.wikipedia.org/wiki/Vukov_Spomenik Vuk</a> '+
+            '</div>'+
+            '</div>';
+
+        var infowindow4 = new google.maps.InfoWindow({
+          content: contentString4,
+          maxWidth: 200
+        });
+
+        var marker4 = new google.maps.Marker({
+          position: Vuk,
+          map: map,
+          title: 'Vukov Spomenik'
+        });
+        marker4.addListener('click', function() {
+          infowindow4.open(map, marker4);	
+		});
+		
+		var contentString5 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Masinski fakultet</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Attribution: Masinski, <a href="https://sh.wikipedia.org/wiki/Ma%C5%A1inski_fakultet_Univerziteta_u_Beogradu">'+
+            'https://sh.wikipedia.org/wiki/Ma%C5%A1inski_fakultet_Univerziteta_u_Beogradu </a> '+
+            '</div>'+
+            '</div>';
+
+        var infowindow5 = new google.maps.InfoWindow({
+          content: contentString5,
+          maxWidth: 200
+        });
+
+        var marker5 = new google.maps.Marker({
+          position: Masinski,
+          map: map,
+          title: 'Masinski Fakultet'
+        });
+        marker5.addListener('click', function() {
+          infowindow5.open(map, marker5);	
+		});
+		
+		var contentString6 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Univerzitetska biblioteka "Svetozar Markovic"</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Attribution: Masinski, <a href="https://sh.wikipedia.org/wiki/Univerzitetska_biblioteka_Svetozar_Markovi%C4%87">'+
+            'https://sh.wikipedia.org/wiki/Univerzitetska_biblioteka_Svetozar_Markovi%C4%87 </a> '+
+            '</div>'+
+            '</div>';
+
+        var infowindow6 = new google.maps.InfoWindow({
+          content: contentString6,
+          maxWidth: 200
+        });
+
+        var marker6 = new google.maps.Marker({
+          position: Biblioteka,
+          map: map,
+          title: 'Univerzitetska biblioteka "Svetozar Markovic"'
+        });
+        marker6.addListener('click', function() {
+          infowindow6.open(map, marker6);	
+		});
+		
+		
+		
+		
+		 }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAri2DrFGj2jO7NKUmsQP2xIEcp6EPrb2M&callback=initMap">
+    </script></div>
+  </body>
+</html>

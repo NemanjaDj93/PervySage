@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gradovi i reke</title>
+	<body bgcolor="#F2F5A9">
+	
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.4/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.6.4/build/ol.js"></script>
+	<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+	<script src="http://localhost:8080/geoserver/ITK"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.3/proj4.js"></script>
+    <script src="https://rawgit.com/walkermatt/ol3-popup/master/src/ol3-popup.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+   
+    
+    <style>
+	#layertree li > span {
+        cursor: pointer;
+      }  
+      .ol-popup {
+        position: absolute;
+        background-color: #CED8F6;
+        -webkit-filter: drop-shadow(0 1px 4px rgba(255,0,0,0.2));
+        filter: drop-shadow(0 1px 4px rgba(255,0,0,0.2));
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #FF0000;
+        bottom: 12px;
+        left: -50px;
+        min-width: 1000px;
+      }
+      .ol-popup:after, .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .ol-popup:after {
+        border-top-color: #0000ff;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      .ol-popup:before {
+        border-top-color: #0000ff;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+      .ol-popup-closer:after {
+        content: "✖";
+      }
+    </style>
+  </head>
+  <body>
+	<h1><center>Nemanja Đorđević - ITK </center></h1>
+	
+	<button id="zoom-out">Zoom out</button>
+    <button id="zoom-in">Zoom in</button>
+	
+	
+	
+    <a class="map" href="#map">Go to map</a>
+    <div id="map" class="map" tabindex="0"></div>
+	
+	<div id="map" class="map"></div>
+    <div id="mouse-position"></div>
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content"></div>
+	  
+    <div id="layertree">
+     <li><span>Lejeri</span></li>
+        <ul>
+        <li><span> OSM Lejer</span>
+          <fieldset id="layer0">
+            <label class="checkbox" for="visible0">
+              <input id="visible0" class="visible" type="checkbox"/>
+            <label>Providnost</label>
+            </label> 			
+            <input class="opacity" type="range" min="0" max="1" step="0.01"/>
+          </fieldset>
+        </li>
+		
+		<li><span> Raster </span>
+          <fieldset id="layer1">
+            <label class="checkbox" for="visible0">
+              <input id="visible0" class="visible" type="checkbox"/>			  
+            <label>Providnost</label>			  
+            </label> 
+            <input class="opacity" type="range" min="0" max="1" step="0.01"/>
+			<div class="l-1">				
+				<button id="ley1" type="button">Download</button>
+			</div>
+          </fieldset>
+        </li>   
+		
+		<li><span> Reke</span>
+          <fieldset id="layer20">
+            <label class="checkbox" for="visible0">
+              <input id="visible0" class="visible" type="checkbox"/>			  
+            <label>Providnost</label>			  
+            </label> 
+            <input class="opacity" type="range" min="0" max="1" step="0.01"/>
+			<div class="l-2">				
+				<button id="ley2" type="button">Download</button>
+			</div>
+          </fieldset>
+        </li>   
+		<li><span> Gradovi </span>
+          <fieldset id="layer21">
+            <label class="checkbox" for="visible0">
+              <input id="visible0" class="visible" type="checkbox"/>
+            <label>Providnost</label>
+            </label> 
+            <input class="opacity" type="range" min="0" max="1" step="0.01"/>
+			<div class="l-3">				
+				<button id="ley3" type="button">Download</button>
+			</div>
+          </fieldset>
+        </li>     
+		
+        </ul>
+      <br>
+      <li><span> Koordinate za transformaciju </span> 
+       Lamda: <input type="number" id="lamda">
+       Fi: <input type="number" id="fi">
+      <br> <br>
+      <li><span> Izaberite projekciju </span> </li>
+      <ul>  
+	  <li><span> Merkatorova projekcija </span>
+      <fieldset>
+      <INPUT TYPE="button" NAME="button" Value="Izračunaj" onClick="transformacijaMERC()">
+           E = <INPUT TYPE="text" ID="merc1" NAME="result" VALUE=""/>
+           N = <INPUT TYPE="text" ID="merc2" NAME="result" VALUE=""/>  
+		   Linearna deformacija [mm/km] = <INPUT TYPE="text" ID="merc3" NAME="result" VALUE=""/>		   
+      <br>
+      </fieldset>
+      </li>
+      <li><span> Lambertova projekcija </span>
+      <fieldset>
+      <INPUT TYPE="button" NAME="button" Value="Izračunaj" onClick="transformacijaLAMB()">
+            E = <INPUT TYPE="text" ID="lamb1" NAME="result" VALUE=""/>
+            N = <INPUT TYPE="text" ID="lamb2" NAME="result" VALUE=""/>   
+			Linearna deformacija [mm/km] = <INPUT TYPE="text" ID="lamb3" NAME="result" VALUE=""/>				
+       <br>
+       </fieldset>
+      </li>	  
+       <li><span> Gaus-Krigerova projekcija </span>
+      <fieldset>
+       <INPUT TYPE="button" NAME="button" Value="Izračunaj" onClick="transformacijaGK7()">
+         Y = <INPUT TYPE="text" ID = "gk1" NAME="result" VALUE = ""/>
+         X = <INPUT TYPE="text" ID = "gk2" NAME="result" VALUE=""/> 
+         Linearna deformacija [mm/km] = <INPUT TYPE="text" ID="gk3" NAME="result" VALUE=""/>
+      <br>
+      </fieldset>
+      </li>
+      <li><span> UTM projekcija </span>
+      <fieldset>
+      <INPUT TYPE="button" NAME="button" Value="Izračunaj" onClick="transformacijaUTM()">
+         E = <INPUT TYPE="text" ID="utm1" NAME="result" VALUE=""/>
+         N = <INPUT TYPE="text" ID="utm2" NAME="result" VALUE=""/>
+         Linearna deformacija [mm/km] = <INPUT TYPE="text" ID="utm3" NAME="result" VALUE=""/>
+      </fieldset>
+      </li>
+    </li>
+    </ul>
+    </div>
+	
+	
+	
+	
+	
+    
+    <script>
+	document.getElementById('zoom-out').onclick = function() {
+        var view = map.getView();
+        var zoom = view.getZoom();
+        view.setZoom(zoom - 1);
+      };
+
+      document.getElementById('zoom-in').onclick = function() {
+        var view = map.getView();
+        var zoom = view.getZoom();
+        view.setZoom(zoom + 1);
+      };
+
+	
+	var mousePositionControl = new ol.control.MousePosition({
+        coordinateFormat: ol.coordinate.createStringXY(4),
+        projection: 'EPSG:4326',
+        className: 'custom-mouse-position',
+        target: document.getElementById('mouse-position'),
+        undefinedHTML: '&nbsp;'
+      });
+      /**
+       * Elements that make up the popup.
+       */
+      var container = document.getElementById('popup');
+      var content = document.getElementById('popup-content');
+      var closer = document.getElementById('popup-closer');
+
+
+      /**
+       * Create an overlay to anchor the popup to the map.
+       */
+      var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+        element: container,
+        autoPan: true,
+        autoPanAnimation: {
+          duration: 250
+        }
+      }));
+      /**
+       * Add a click handler to hide the popup.
+       * @return {boolean} Don't follow the href.
+       */
+      closer.onclick = function() {
+        overlay.setPosition(undefined);
+        closer.blur();
+        return false;
+      };
+      var map = new ol.Map({
+            controls: ol.control.defaults({
+            attributionOptions: ({
+            collapsible: false
+          })
+        }).extend([mousePositionControl]),
+		
+		
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()}),
+			new ol.layer.Tile({
+                source: new ol.source.TileWMS({
+                  ratio:1,
+                  url: 'http://localhost:8080/geoserver/wms',
+                  params:{'VERSION':'1.1.1',
+                  layers: ['Raster'],}
+                })
+              }),
+		  new ol.layer.Group({
+            layers: [
+              new ol.layer.Tile({
+                source: new ol.source.TileWMS({
+                  ratio:1,
+                  url: 'http://localhost:8080/geoserver/wms',
+                  params:{'VERSION':'1.1.1',
+                  layers: ['RekeSrbije'],}
+                })
+              }),
+              new ol.layer.Tile({
+                source: new ol.source.TileWMS({
+                  ratio:1,
+                  url: 'http://localhost:8080/geoserver/wms',
+                  params:{'VERSION':'1.1.1',
+                  layers: ['Gradovi'],} 
+                })
+              })			  	
+            ]
+			
+          })
+        ],
+        overlays: [overlay],
+        target: 'map',
+        view: new ol.View({
+          controls: [new ol.control.ZoomSlider(),
+                     new ol.control.MousePosition(),
+                     new ol.control.Zoom()],
+          projection: 'EPSG:4326',
+          center: [ 20.6832, 44.0920],
+          zoom: 7.5
+        })
+      });
+      map.on('singleclick', function(evt) {
+        var coordinate = evt.coordinate;
+        var hdms = ol.coordinate.toStringHDMS(ol.proj.transform(
+            coordinate, 'EPSG:4326', 'EPSG:4326'));
+
+        content.innerHTML = '<p> Vasa pozicija:</p><code>' + hdms +
+            '</code>';
+        overlay.setPosition(coordinate);
+      });
+      function bindInputs(layerid, layer) {
+        var visibilityInput = $(layerid + ' input.visible');
+        visibilityInput.on('change', function() {
+          layer.setVisible(this.checked);
+        });
+        visibilityInput.prop('checked', layer.getVisible());
+
+        var opacityInput = $(layerid + ' input.opacity');
+        opacityInput.on('input change', function() {
+          layer.setOpacity(parseFloat(this.value));
+        });
+        opacityInput.val(String(layer.getOpacity()));
+      }
+      map.getLayers().forEach(function(layer, i) {
+        bindInputs('#layer' + i, layer);
+        if (layer instanceof ol.layer.Group) {
+          layer.getLayers().forEach(function(sublayer, j) {
+            bindInputs('#layer' + i + j, sublayer);
+          });
+        }
+      });
+	  
+
+	 
+	  
+	  $('#layertree li > span').click(function() {
+        $(this).siblings('fieldset').toggle();
+      }).siblings('fieldset').hide();
+      proj4.defs("MERC","+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=6378137 +b=6378137 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"); // Merkatova
+      proj4.defs("LAMB","+proj=lcc +lat_1=35 +lat_2=65 +lat_0=52 +lon_0=10 +x_0=4000000 +y_0=2800000 +ellps=GRS80 +units=m"); // Lambertova
+	  proj4.defs("GK7","+proj=tmerc +lat_0=0 +lon_0=21 +k=0.9999 +x_0=7500000 +y_0=0 +ellps=bessel +towgs84=574.027,170.175,401.545,4.88786,-0.66524,-13.24673,6.8893+units=m +no_defs"); // Gaus-Krigerova   
+	  proj4.defs("UTM","+proj=utm +zone=34 +ellps=GRS80 +towgs84=0.26901,0.18246,0.06872,-0.01017,0.00893,-0.01172,0.99999996031 +units=m +no_defs"); // UTM
+      function transformacijaMERC() {
+        var fi_k = document.getElementById("fi").value;
+        var lamda_k = document.getElementById("lamda").value;
+        var racunanje = ol.proj.transform([parseInt(lamda_k),parseInt(fi_k)], "EPSG:4326", "MERC");		
+        var a_l = 6378137;
+        var e_l = 0.0818191908426215;
+        var fi_r = parseInt(fi_k)*(Math.PI/180);  
+        var t_l = a_l/(Math.sqrt(1-((Math.pow(e_l,2)* Math.pow(Math.sin(fi_r),2)))));
+        var n_l = a_l/(t_l*Math.cos(fi_r));
+		var c_l = (n_l-1);	    				
+        document.getElementById('merc1').value = racunanje[0].toFixed(3);
+        document.getElementById('merc2').value = racunanje[1].toFixed(3);
+		document.getElementById('merc3').value = c_l.toFixed(4);
+	  }
+	  function transformacijaLAMB() {
+        var fi_k = document.getElementById("fi").value;
+        var lamda_k = document.getElementById("lamda").value;
+        var racunanje = ol.proj.transform([parseInt(lamda_k),parseInt(fi_k)], "EPSG:4326", "LAMB");
+		var sp1 = 35;
+		var sp2 = 65;
+		var a_l = 6377397.155;		
+		var e_l = 0.081696831;
+		var fi_r = parseInt(fi_k)*(Math.PI/180);  
+		var t_l = a_l/(Math.sqrt(1-((Math.pow(e_l,2)* Math.pow(Math.sin(fi_r),2)))));
+		var r_l = t_l*Math.cos(fi_r);
+		var ro_1 = -17714.2743841427;
+		var ro_2 = -9154.31106410611;
+		var k_l = -295.266220156939;
+		var m_l = (k_l*ro_1)/r_l;
+		var n_l = (k_l*ro_2)/r_l;
+		var LD_1 = (m_l-1);
+		var LD_2 = (n_l-1);	
+ 		var LD = LD_1 + LD_2;			
+        document.getElementById('lamb1').value = racunanje[0].toFixed(3);
+        document.getElementById('lamb2').value = racunanje[1].toFixed(3);
+		document.getElementById('lamb3').value = LD.toFixed(4);
+		}
+	  function transformacijaGK7() {
+        var fi_k = document.getElementById("fi").value;
+        var lamda_k = document.getElementById("lamda").value;
+        var racunanje = ol.proj.transform([parseInt(lamda_k),parseInt(fi_k)], "EPSG:4326", "GK7");
+        var lin_duz = 0.9999;
+        var e_l = 0.0816968312225275;
+        var fi_r = parseInt(fi_k)*(Math.PI/180);
+        var t_l = Math.tan(fi_r);
+        var n_l = e_l*Math.cos(fi_r);
+        var C1 = (1+Math.pow(n_l, 2))*Math.pow(Math.cos(fi_r),2)/2;
+        var C2 = (5-4*Math.pow(t_l, 2))*Math.pow(Math.cos(fi_r),4)/24;
+        var ls=21;
+        var l=(parseInt(lamda_k)-ls)/2;
+        var c_l = lin_duz*(1+C1*Math.pow(l,2)+C2*Math.pow(l,4));
+        var LD_l = c_l-1;
+        //var LD =LD_l*1000000;
+        document.getElementById('gk1').value = racunanje[0].toFixed(3);
+        document.getElementById('gk2').value = racunanje[1].toFixed(3);
+        document.getElementById('gk3').value = c_l.toFixed(4);
+        alert(coordinate);
+        }			
+      function transformacijaUTM() {
+        var fi_k = document.getElementById("fi").value;
+        var lamda_k = document.getElementById("lamda").value;
+        var racunanje = ol.proj.transform([parseInt(lamda_k),parseInt(fi_k)], "EPSG:4326", "UTM");
+        var lin_duz = 0.9996;
+        var e_l = 0.0818191910428158;
+        var fi_r = parseInt(fi_k)*(Math.PI/180);
+        var t_l = Math.tan(fi_r);
+        var n_l = e_l*Math.cos(fi_r);
+        var C1 = (1+Math.pow(n_l, 2))*Math.pow(Math.cos(fi_r),2)/2;
+        var C2 = (5-4*Math.pow(t_l, 2))*Math.pow(Math.cos(fi_r),4)/24;
+        var ls=21;
+        var l=(parseInt(lamda_k)-ls)/2;
+        var c_l = lin_duz*(1+C1*Math.pow(l,2)+C2*Math.pow(l,4));
+        var LD_l = c_l-1;
+        document.getElementById('utm1').value = racunanje[0].toFixed(3);
+        document.getElementById('utm2').value = racunanje[1].toFixed(3);
+        document.getElementById('utm3').value = c_l.toFixed(4);
+        } 
+ 
+	     
+  	  	  	  
+	 
+    </script>
+  </body>
+</html>

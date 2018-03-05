@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Web Kartografija</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      function initMap() {
+        var myLatLng = {lat: 44.805806, lng: 20.476333};
+		var myLatLng1 = {lat: 44.804581, lng: 20.478908};
+		var myLatLng2 = {lat: 44.804873, lng: 20.477627};
+		var myLatLng3 = {lat: 44.805485, lng: 20.477642};
+		var myLatLng4 = {lat: 44.806644, lng: 20.477074};
+		var myLatLng5 = {lat: 44.806142, lng: 20.474708};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 18,
+          center: myLatLng
+        });
+		
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Zgrada tehnickih fakulteta'
+		  
+		});
+		
+		var marker1 = new google.maps.Marker({
+          position: myLatLng1,
+          map: map,
+          title: 'Park Cirila i Metodija'
+        });
+		
+		var marker2 = new google.maps.Marker({
+          position: myLatLng2,
+          map: map,
+          title: 'Vukov spomenik'
+		  
+        });
+		
+		var marker3 = new google.maps.Marker({
+          position: myLatLng3,
+          map: map,
+          title: 'Fontana kod vuka'
+        });
+		
+		var marker4 = new google.maps.Marker({
+          position: myLatLng4,
+          map: map,
+          title: 'Masinski fakultet univerziteta u beogradu'
+        });
+		
+		var marker5 = new google.maps.Marker({
+          position: myLatLng5,
+          map: map,
+          title: 'Univerzitetska biblioteka "Svetozar Markovic"'
+        });
+		
+		}
+	  
+	  
+	  
+	  
+	 
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUvJM8BnZMWkLJVd6xEkqk6xYin7nnBDA&callback=initMap">
+    </script>
+  </body>
+</html>

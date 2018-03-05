@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Web Kartografija</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.min.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+  
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Web kartografija</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">Vezba 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#services">Vezba 2</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#portfolio">Vezba iz web kartografive</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Vezba iz ITK</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead text-center text-white d-flex">
+      <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <h1 class="text-uppercase">
+              <strong>Nemanja Djordjevic <br> Web kartografija</strong>
+            </h1>
+            <hr>
+          </div>
+          <div class="col-lg-8 mx-auto">
+            <p class="text-faded mb-5">Vezbe iz kartografije</p>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Vezba 1</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="bg-primary" id="about">
+      <div class="container">
+        <form class="form-horizontal"  name="form1" >
+  <h4>Uneti sledeće podatke</h4>
+    <div class="form-group">
+      <label class="control-label col-sm-2" >Ime:</label>
+      <div class="col-sm-3">          
+        <input  class="form-control" id="pwd" placeholder="Unesi ime" name="ime">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Prezime:</label>
+      <div class="col-sm-3">          
+        <input  class="form-control" id="pwd" placeholder="Unesi prezime" name="prezime">
+      </div>
+    </div>
+     <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="button" value="Sracunaj" onClick="transformacija()" class="btn btn-default">
+		</div>
+    </div>   
+  </form>
+  
+  <div class="container">
+  
+  <form class="form-horizontal"  name="form2">
+  <h4>Dobijeni su sledeći rezultati</h4>
+  <div class="form-group">
+      <label class="control-label col-sm-7" >Koordinate tačke:  </label>
+      <div class="col-sm-3">          
+        Lat:<input  class="form-control" id="pwd"  name="lat" disabled>  
+		<div class="input-group-btn">
+        
+      </div>
+		Lon:<input  class="form-control" id="pwd"  name="lon" disabled >
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-7" >a)<br> Radijus krivine meridijana je:  </label>
+      <div class="col-sm-3">          
+        <input  class="form-control" id="pwd"  name="aa" disabled>
+      </div>
+    </div>
+      <div class="form-group">
+      <label class="control-label col-sm-7" >b)<br> Radijus krivine paralele:  </label>
+      <div class="col-sm-3">          
+        <input  class="form-control" id="pwd" name="bb" disabled>
+      </div>
+    </div>
+	   <div class="form-group">
+      <label class="control-label col-sm-7" >c)<br> Radijus krivine prvog vertikala:  </label>
+      <div class="col-sm-3">          
+        Bessel:<input  class="form-control" id="pwd"  name="cc1" disabled>
+      </div>
+	  <div class="col-sm-3">          
+        WGS84:<input  class="form-control" id="pwd"  name="cc2" disabled>
+      </div>
+    </div>
+	   <div class="form-group">
+      <label class="control-label col-sm-7" >d)<br> Radijus krivine meridijana:  </label>
+	  <div class="col-sm-3"> 
+	     Bessel:<input  class="form-control" id="pwd"  name="dd1" disabled>
+      </div>
+	  <div class="col-sm-3">          
+        WGS84:<input  class="form-control" id="pwd"  name="dd2" disabled>
+      </div>
+      
+    </div>
+	   <div class="form-group">
+      <label class="control-label col-sm-7" >e)<br> Radijus krivine paralele:  </label>
+	   <div class="col-sm-3"> 
+	     Bessel:<input  class="form-control" id="pwd"  name="ee1" disabled>
+      </div>
+	  <div class="col-sm-3">          
+        WGS84:<input  class="form-control" id="pwd"  name="ee2" disabled>
+      </div>
+      
+    </div>
+   
+  </form>
+</div>
+      </div>
+    </section>
+
+    <section id="services">
+	<body style="background-color:powderblue;">
+      <div class="container">
+  
+  <form class="form-horizontal"  name="form3" >
+  <h4>Uneti sledeće podatke</h4>
+    <div class="form-group">
+      <label class="control-label col-sm-2" >Ime:</label>
+      <div class="col-sm-3">          
+        <input  class="form-control" id="pwd" placeholder="Unesi ime" name="ime">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Prezime:</label>
+      <div class="col-sm-3">          
+        <input  class="form-control" id="pwd" placeholder="Unesi prezime" name="prezime">
+      </div>
+    </div>
+     <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="button" value="Sracunaj" onClick="transformacija1()" class="btn btn-default">
+		</div>
+    </div> 
+  </form>
+</div>
+
+
+<div class="container">
+  
+  <form class="form-horizontal"  name="form4">
+  <h4>Dobijeni su sledeći rezultati</h4>
+  <div class="form-group">
+      <label class="control-label col-sm-7" >Koordinate tačke T1:  </label>
+      <div class="col-sm-3">          
+        Lat:<input  class="form-control" id="pwd"  name="lat" disabled>  
+		<div class="input-group-btn">
+        
+      </div>
+		Lon:<input  class="form-control" id="pwd"  name="lon" disabled >
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-7" >a)<br> Dužina merdijanskog luka je:  </label>
+      <div class="col-sm-3">          
+        <input  class="form-control" id="pwd"  name="aa" disabled>
+      </div>
+    </div>
+      <div class="form-group">
+      <label class="control-label col-sm-7" >b)<br> Duzina luka paralele je:  </label>
+      <div class="col-sm-3">          
+        Lp1:<input  class="form-control" id="pwd" name="bb1" disabled>
+      </div>
+	  <div class="col-sm-3">          
+        Lp2:<input  class="form-control" id="pwd" name="bb2" disabled>
+      </div>
+    </div>
+	   <div class="form-group">
+      <label class="control-label col-sm-7" >c)<br> Površina sfernog trapeza je:  </label>
+      <div class="col-sm-3">          
+        <input  class="form-control" id="pwd"  name="cc" disabled>
+      </div>
+    </div>
+	   <div class="form-group">
+      <label class="control-label col-sm-7" >d)<br> Dužina meridijanskog luka  </label>
+	  <div class="col-sm-3"> 
+	     Bessel:<input  class="form-control" id="pwd"  name="dd1" disabled>
+      </div>
+	  <div class="col-sm-3">          
+        WGS84:<input  class="form-control" id="pwd"  name="dd2" disabled>
+      </div>
+      
+    </div>
+	   <div class="form-group">
+      <label class="control-label col-sm-7" >e)<br> Dužina luka paralele(Bessel):  </label>
+	   <div class="col-sm-3"> 
+	     Lp1:<input  class="form-control" id="pwd"  name="ee1" disabled>
+      </div>
+	  <div class="col-sm-3">          
+        Lp2:<input  class="form-control" id="pwd"  name="ee2" disabled>
+      </div>
+	  <br>
+	   <label class="control-label col-sm-7" > Dužina luka paralele(WGS84):  </label>
+	   <div class="col-sm-3"> 
+	     Lp1:<input  class="form-control" id="pwd"  name="ee11" disabled>
+      </div>
+	  <div class="col-sm-3">          
+        Lp2:<input  class="form-control" id="pwd"  name="ee22" disabled>
+      </div>
+      
+    </div>
+   
+  </form>
+</div>
+    </section>
+
+    <section class="p-0 bg-white text-dark" id="portfolio">	
+      <div class="container">	  
+	    <div class="col-lg-8 mx-auto text-center">
+			<iframe src="Vezba1.html" frameborder="0" height="500" width="100%"  ></iframe>
+		</div>
+      </div>
+    </section>
+	
+	<section class= " bg-dark text-white" id="contact">
+      <div class="container">
+        <div class="row">
+          		  
+            <iframe src="TransformaciaIGremetrija.html" frameborder="0" height="500" width="1500"  ></iframe>
+          
+        </div>
+      </div>
+    </section>
+	
+
+
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+	
+	<script >
+	        function transformacija() {
+            var person = String(document.form1.ime.value);
+            var person1 = String(document.form1.prezime.value);
+            if (person != null) {
+                if (person.length<10){
+                    var x=43+person.length/10;
+                    }
+                else {
+                    var x=43+person.length/100;
+                }    
+                if (person1.length<10){
+                    var y=21+person1.length/10;
+                    }
+                else {
+                    var y=21+person1.length/100;
+                }   
+                 
+            }
+         
+		document.form2.lon.value= x;
+	    document.form2.lat.value= y;
+		document.form2.aa.value= 6371000+' '+'m';
+		
+		var fi = parseFloat(x)*(Math.PI/180);     
+       var R=6371000;
+
+            var p=R*Math.cos(fi);
+            document.form2.bb.value = p.toFixed(2)+' '+'m';
+			
+	   var ab=6377397.155;
+       var eb=0.0816968312225275;
+       var n1=Math.sin(fi);
+       var n=1-(Math.pow(eb,2)*Math.pow(n1,2));
+       var n2=Math.pow(n,0.5);
+       var nn=ab/n2
+       var aw=6378137
+       var ew=0.0818191908426215
+       var n1w=Math.sin(fi);
+       var nw=1-(Math.pow(ew,2)*Math.pow(n1w,2));
+       var n2w=Math.pow(nw,0.5);
+       var nnw=aw/n2w
+	   
+	    document.form2.cc1.value = nn.toFixed(2)+' '+'m';
+		document.form2.cc2.value = nnw.toFixed(2)+' '+'m';
+		
+		var m1=ab*(1-Math.pow(eb,2));
+        var m2=Math.pow(n,1.5);
+        var m=m1/m2;
+        var m1w=aw*(1-Math.pow(ew,2));
+        var m2w=Math.pow(nw,1.5);
+        var mw=m1w/m2w;
+		
+		document.form2.dd1.value = m.toFixed(2)+' '+'m';
+		document.form2.dd2.value = mw.toFixed(2)+' '+'m';
+		
+		 var n1b=nn*Math.cos(fi);
+        var n1w=nnw*Math.cos(fi);
+		
+		
+		
+		document.form2.ee1.value = n1b.toFixed(2)+' '+'m';
+		document.form2.ee2.value = n1w.toFixed(2)+' '+'m';
+		
+		
+		
+		
+		
+        }
+	</script>
+	
+		</script>
+	
+		<script >
+	        function transformacija1() {
+            var person = String(document.form3.ime.value);
+            var person1 = String(document.form3.prezime.value);
+            if (person != null) {
+                if (person.length<10){
+                    var x=43+person.length/10;
+                    }
+                else {
+                    var x=43+person.length/100;
+                }    
+                if (person1.length<10){
+                    var y=21+person1.length/10;
+                    }
+                else {
+                    var y=21+person1.length/100;
+                }   
+                 
+            }
+         
+		document.form4.lon.value= x;
+	    document.form4.lat.value= y;
+		
+		
+		    
+       var fi1 = parseFloat(x)*(Math.PI/180);     
+       var la1 = parseFloat(y)*(Math.PI/180);
+       var fi2 = 45*(Math.PI/180);
+       var la2 = 23*(Math.PI/180);
+       var R=6371000;
+       var L=R*(fi2-fi1)
+	   
+	   document.form4.aa.value= L.toFixed(2)+'m';
+       
+       var Lp1=R*(la2-la1)*Math.cos(fi1);
+       var Lp2=R*(la2-la1)*Math.cos(fi2);
+	   
+	   document.form4.bb1.value= Lp1.toFixed(2)+'m';
+	   document.form4.bb2.value= Lp2.toFixed(2)+'m';
+	   
+	   var razl=la2-la1;
+       var razf=(fi2-fi1)/2;
+       var zbirf=(fi1+fi2)/2;
+       var P=(2*Math.pow(R/1000,2)*razl*Math.cos(razf)*Math.cos(zbirf))
+	   
+	   document.form4.cc.value= P.toFixed(2)+'km2';
+	   
+	   
+	   var ab=6377397.155;
+       var eb=0.0816968312225275;
+       var n1=Math.sin(fi1);
+       var n=1-(Math.pow(eb,2)*Math.pow(n1,2));
+       var n2=Math.pow(n,0.5);
+       var nn=ab/n2
+       var aw=6378137
+       var ew=0.0818191908426215
+       var n1w=Math.sin(fi1);
+       var nw=1-(Math.pow(ew,2)*Math.pow(n1w,2));
+       var n2w=Math.pow(nw,0.5);
+       var nnw=aw/n2w
+       var Llp1=nn*razl*Math.cos(fi1);
+       var Llp2=nn*razl*Math.cos(fi2);
+       var Llp1w=nnw*razl*Math.cos(fi1);
+       var Llp2w=nnw*razl*Math.cos(fi2);
+	   
+	   
+	   document.form4.ee1.value= Llp1.toFixed(2)+'m';
+	   document.form4.ee2.value= Llp2.toFixed(2)+'m';
+	   document.form4.ee11.value= Llp1w.toFixed(2)+'m';
+	   document.form4.ee22.value= Llp2w.toFixed(2)+'m';  
+	   
+	   
+	    var m1=ab*(1-Math.pow(eb,2));
+        var m2=Math.pow(n,1.5);
+        var m=m1/m2;
+        var m1w=aw*(1-Math.pow(ew,2));
+        var m2w=Math.pow(nw,1.5);
+        var mw=m1w/m2w;
+		
+		
+		document.form4.dd1.value= m.toFixed(2)+'m';
+	   document.form4.dd2.value= mw.toFixed(2)+'m';
+	   
+		
+	   
+	   
+		
+		
+		
+		
+        }
+	</script>
+
+  </body>
+
+</html>
